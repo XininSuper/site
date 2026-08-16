@@ -1,0 +1,678 @@
+:root {
+    --ruby-neon: #ff0055;
+    --ruby-glow: rgba(255, 0, 85, 0.6);
+    --bg-dark: #0a0a0a;
+    --card-bg: rgba(15, 15, 15, 0.8);
+    --text-main: #ffffff;
+    --text-dim: #b3b3b3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.entry-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 0;
+    color: var(--text-main);
+    background:
+        radial-gradient(circle at center, rgba(255, 0, 85, 0.2), transparent 38%),
+        rgba(4, 4, 6, 0.96);
+    cursor: pointer;
+    transition: opacity 0.65s ease, transform 0.65s ease, visibility 0.65s ease;
+}
+
+.entry-screen:hover,
+.entry-screen:focus-visible {
+    color: var(--text-main);
+}
+
+.entry-screen:focus-visible {
+    outline: 2px solid var(--ruby-neon);
+    outline-offset: -8px;
+}
+
+.entry-screen.is-exiting {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.04);
+    pointer-events: none;
+}
+
+.entry-screen[hidden] {
+    display: none;
+}
+
+.entry-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 32px;
+}
+
+.entry-glow {
+    position: absolute;
+    width: min(460px, 80vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 0, 85, 0.16), transparent 68%);
+    animation: entryGlow 2.8s ease-in-out infinite;
+}
+
+.entry-play {
+    width: 78px;
+    height: 78px;
+    display: grid;
+    place-items: center;
+    padding-left: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+    font-size: 1.55rem;
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 28px var(--ruby-glow), inset 0 0 18px rgba(255, 255, 255, 0.05);
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.entry-screen:hover .entry-play,
+.entry-screen:focus-visible .entry-play {
+    transform: scale(1.08);
+    border-color: var(--ruby-neon);
+    background: rgba(255, 0, 85, 0.16);
+}
+
+.entry-title {
+    margin-top: 10px;
+    font-size: clamp(1.35rem, 4vw, 1.85rem);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 18px var(--ruby-glow);
+}
+
+.entry-subtitle {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+}
+
+@keyframes entryGlow {
+    0%, 100% { transform: scale(0.92); opacity: 0.6; }
+    50% { transform: scale(1.08); opacity: 1; }
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 0, 85, 0.15) 0%, rgba(0, 0, 0, 1) 80%);
+    z-index: -1;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+.profile-card {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 0, 85, 0.2);
+    border-radius: 24px;
+    padding: 40px 30px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--ruby-glow);
+    animation: fadeIn 1s ease-out;
+}
+
+.profile-card::before {
+    content: "";
+    position: absolute;
+    top: -55%;
+    left: -52%;
+    z-index: 2;
+    width: 42%;
+    height: 210%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.03) 28%,
+        rgba(255, 218, 231, 0.2) 42%,
+        rgba(255, 255, 255, 0.62) 50%,
+        rgba(255, 0, 85, 0.28) 57%,
+        transparent 74%
+    );
+    filter: blur(0.4px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(-160%, -10%, 0) rotate(24deg);
+    animation: cardReflectionSweep 4.8s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+}
+
+@keyframes cardReflectionSweep {
+    0% {
+        opacity: 0;
+        transform: translate3d(-180%, -14%, 0) rotate(24deg);
+    }
+
+    14% {
+        opacity: 0.18;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    86% {
+        opacity: 0.18;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(500%, 14%, 0) rotate(24deg);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseNick {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+        text-shadow:
+            0 0 8px #fff,
+            0 0 15px var(--ruby-neon),
+            0 0 25px var(--ruby-neon);
+    }
+
+    50% {
+        transform: scale(1.06);
+        filter: brightness(1.5);
+        text-shadow:
+            0 0 12px #fff,
+            0 0 25px var(--ruby-neon),
+            0 0 45px var(--ruby-neon),
+            0 0 70px var(--ruby-neon);
+    }
+
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+        text-shadow:
+            0 0 8px #fff,
+            0 0 15px var(--ruby-neon),
+            0 0 25px var(--ruby-neon);
+    }
+}
+
+@keyframes moveSparkles {
+    from {
+        background-position: 0 center;
+    }
+
+    to {
+        background-position: 300px center;
+    }
+}
+
+.avatar-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 25px;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--ruby-neon);
+    box-shadow: 0 0 20px var(--ruby-neon);
+}
+
+.username {
+    position: relative;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+
+    display: inline-block;
+    padding: 6px 18px;
+
+    background-image: url("../images/sparkles.gif");
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    background-position: center;
+
+    color: #fff;
+    text-shadow:
+        0 0 8px #fff,
+        0 0 15px var(--ruby-neon),
+        0 0 30px var(--ruby-neon);
+
+    animation: pulseNick 4s infinite, moveSparkles 3s linear infinite;
+}
+
+.bio:empty {
+    display: none;
+}
+.bio {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.badges {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.badge {
+    background: rgba(255, 0, 85, 0.1);
+    border: 1px solid var(--ruby-neon);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--ruby-neon);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 75px));
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.social-icon {
+    width: 100%;
+    height: 50px;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+.social-icon:hover {
+    color: var(--ruby-neon);
+    background: rgba(255, 0, 85, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px var(--ruby-glow);
+}
+
+.music-player {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.music-info {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    color: var(--ruby-neon);
+    text-align: center;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+button {
+    background: none;
+    border: none;
+    color: var(--text-main);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+button:hover {
+    color: var(--ruby-neon);
+}
+
+input[type="range"] {
+    flex-grow: 1;
+    accent-color: var(--ruby-neon);
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    body {
+        height: auto;
+        min-height: 100svh;
+        min-height: 100dvh;
+        align-items: center;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding:
+            max(12px, env(safe-area-inset-top))
+            max(0px, env(safe-area-inset-right))
+            max(12px, env(safe-area-inset-bottom))
+            max(0px, env(safe-area-inset-left));
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 12px;
+    }
+
+    .profile-card {
+        width: 100%;
+        padding: 32px 20px;
+        border-radius: 22px;
+    }
+
+    .avatar-container {
+        width: clamp(124px, 38vw, 142px);
+        height: clamp(124px, 38vw, 142px);
+        margin-bottom: 22px;
+    }
+
+    .username {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto 22px;
+        padding: 6px 0;
+        font-size: clamp(1.15rem, 6.2vw, 1.55rem);
+        line-height: 1.15;
+        letter-spacing: clamp(0.2px, 0.18vw, 0.7px);
+        white-space: nowrap;
+        overflow-wrap: normal;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+    .badges {
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 28px;
+    }
+
+    .badge {
+        padding: 5px 10px;
+        font-size: 0.72rem;
+    }
+
+    .social-links {
+        width: min(100%, 249px);
+        grid-template-columns: repeat(3, minmax(0, 75px));
+        gap: 12px;
+        margin-inline: auto;
+        margin-bottom: 30px;
+    }
+
+    .music-player {
+        width: 100%;
+        padding: 13px;
+    }
+
+    .music-info {
+        gap: 8px;
+        font-size: clamp(0.72rem, 3.4vw, 0.82rem);
+    }
+
+    .controls {
+        gap: 12px;
+    }
+
+    .entry-content {
+        padding: 24px;
+    }
+
+    .entry-play {
+        width: 68px;
+        height: 68px;
+    }
+}
+
+@media (max-width: 350px) {
+    .container {
+        padding: 8px;
+    }
+
+    .profile-card {
+        padding-inline: 16px;
+    }
+
+    .username {
+        font-size: clamp(1.05rem, 5.9vw, 1.28rem);
+    }
+
+    .badges {
+        gap: 6px;
+    }
+
+    .badge {
+        padding-inline: 8px;
+        font-size: 0.68rem;
+    }
+
+    .social-links {
+        width: min(100%, 225px);
+        grid-template-columns: repeat(3, minmax(0, 67px));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .entry-glow,
+    .profile-card,
+    .username {
+        animation: none;
+    }
+
+    .entry-screen {
+        transition-duration: 0.01ms;
+    }
+
+    .profile-card::before {
+        opacity: 0;
+        animation: none;
+    }
+}
+
+/* Cursor rubi: ativado apenas em dispositivos com ponteiro preciso. */
+.ruby-cursor,
+.ruby-cursor-particle {
+    display: none;
+}
+
+@media (pointer: fine) {
+    html.cursor-effect-enabled,
+    html.cursor-effect-enabled * {
+        cursor: none !important;
+    }
+
+    .ruby-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10001;
+        width: 14px;
+        height: 14px;
+        display: block;
+        border: 1px solid rgba(255, 190, 212, 0.9);
+        border-radius: 50%;
+        background: var(--ruby-neon);
+        box-shadow:
+            0 0 8px rgba(255, 0, 85, 0.95),
+            0 0 18px rgba(255, 0, 85, 0.65),
+            0 0 30px rgba(255, 0, 85, 0.28);
+        opacity: 0;
+        pointer-events: none;
+        will-change: transform;
+        transition:
+            width 0.18s ease,
+            height 0.18s ease,
+            opacity 0.16s ease,
+            background 0.18s ease,
+            box-shadow 0.18s ease;
+    }
+
+    .ruby-cursor::after {
+        content: "";
+        position: absolute;
+        inset: -7px;
+        border: 1px solid rgba(255, 0, 85, 0.3);
+        border-radius: inherit;
+        transition: inset 0.18s ease, opacity 0.18s ease;
+    }
+
+    .ruby-cursor.is-visible {
+        opacity: 1;
+    }
+
+    .ruby-cursor.is-interactive {
+        width: 9px;
+        height: 9px;
+        background: rgba(255, 82, 134, 0.82);
+        box-shadow:
+            0 0 5px rgba(255, 0, 85, 0.75),
+            0 0 10px rgba(255, 0, 85, 0.3);
+    }
+
+    .ruby-cursor.is-interactive::after {
+        inset: -4px;
+        opacity: 0.35;
+    }
+
+    .ruby-cursor-particle {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10000;
+        width: var(--particle-size, 4px);
+        height: var(--particle-size, 4px);
+        display: block;
+        border-radius: 50%;
+        background: rgba(255, 62, 126, 0.96);
+        box-shadow:
+            0 0 6px rgba(255, 168, 198, 0.9),
+            0 0 13px rgba(255, 0, 85, 0.58);
+        pointer-events: none;
+        animation: rubyParticleFade 0.52s ease-out forwards;
+        will-change: transform, opacity;
+    }
+}
+
+@keyframes rubyParticleFade {
+    from {
+        opacity: 0.94;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform:
+            translate(
+                calc(-50% + var(--particle-drift-x, 0px)),
+                calc(-50% + var(--particle-drift-y, 0px))
+            )
+            scale(0.15);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ruby-cursor-particle {
+        display: none !important;
+    }
+}
+
+.ruby-click-particle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10002;
+    width: var(--particle-size, 4px);
+    height: var(--particle-size, 4px);
+    display: block;
+    border-radius: 50%;
+    background: rgba(255, 84, 143, 0.98);
+    box-shadow:
+        0 0 6px rgba(255, 196, 216, 0.94),
+        0 0 14px rgba(255, 0, 85, 0.62);
+    pointer-events: none;
+    animation: rubyClickWave 0.58s cubic-bezier(0.18, 0.72, 0.28, 1) forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes rubyClickWave {
+    from {
+        opacity: 0.98;
+        transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    to {
+        opacity: 0;
+        transform:
+            translate(
+                calc(-50% + var(--burst-x, 0px)),
+                calc(-50% + var(--burst-y, 0px))
+            )
+            scale(0.1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ruby-click-particle {
+        display: none !important;
+    }
+}

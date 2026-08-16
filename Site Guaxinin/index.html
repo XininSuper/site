@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☆GUAXININ_SUPER☆</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/duck.png" type="image/png">
+    <!-- Fontes e Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button id="entry-screen" class="entry-screen" type="button" aria-label="Entrar no site e iniciar a música">
+        <span class="entry-glow" aria-hidden="true"></span>
+        <span class="entry-content">
+            <span class="entry-play" aria-hidden="true">
+                <i class="fas fa-play"></i>
+            </span>
+     
+    </button>
+
+    <div class="background-overlay"></div>
+    
+    <div class="container">
+        <div class="profile-card">
+           <div class="avatar-container">
+    <img src="assets/images/Russian Girl.jpg" alt="Avatar" class="avatar">
+</div>
+
+<h1 class="username">
+    ☆GUAXININ_SUPER☆
+</h1>
+
+<p class="bio"></p>
+            
+            <div class="badges">
+                <span class="badge"><i class="fas fa-medal"></i> Level 28</span>
+                <span class="badge"><i class="fas fa-check-circle"></i> Verificado</span>
+                <span class="badge"><i class="fas fa-star"></i> VIP</span>
+            </div>
+
+            <div class="social-links">
+    <a href="https://www.youtube.com/@guaxininsuper" target="_blank" class="social-icon" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://x.com/XininSuper" target="_blank" class="social-icon" title="X"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.twitch.tv/guaxininsuper" target="_blank" class="social-icon" title="Twitch"><i class="fa-brands fa-twitch"></i></a>
+
+    <a href="https://steamcommunity.com/id/xininsuper" target="_blank" class="social-icon" title="Steam"><i class="fa-brands fa-steam"></i></a>
+    <a href="https://github.com/XininSuper" target="_blank" class="social-icon" title="Github"><i class="fa-brands fa-github"></i></a>
+    <a href="https://www.instagram.com/xinin_animy/" target="_blank" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+</div>
+
+            <div class="music-player">
+                <div class="music-info">
+                    <i class="fas fa-music"></i>
+                    <span id="song-title"> LEAN ON (HARDTEKK)</span>
+                </div>
+                <div class="controls">
+                    <button id="play-pause" type="button" aria-label="Reproduzir música"><i class="fas fa-play"></i></button>
+                    <input type="range" id="volume" min="0" max="1" step="0.05" value="0.5" aria-label="Volume da música">
+                </div>
+                <audio id="bg-music" loop preload="metadata" playsinline>
+                    <source src="MUSICA/LEAN ON HARDTEKK.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
